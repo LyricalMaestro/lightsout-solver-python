@@ -64,7 +64,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='LightsOut Solver')
     parser.add_argument('-s', type=int, choices=range_check(low_limit=2), help='LightsOut Size')
     parser.add_argument('-mat', help='LightsOut Init Matrix')
-    parser.add_argument('-min', action='store_true', help='solve minimum tap pattern.')
     argv_values = parser.parse_args()
 
     size = argv_values.s
