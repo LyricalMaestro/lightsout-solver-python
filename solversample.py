@@ -77,6 +77,7 @@ if __name__ == '__main__':
 
     answer = lightsoutsolver.solve_lightsout(mat_array, size)
     if answer is None:
+        print "-------      OUTPUT LIGHTSOUT  --------"
         print "not solvable."
     else:
         print_output_lightsout(mat_array=answer, size=size)
