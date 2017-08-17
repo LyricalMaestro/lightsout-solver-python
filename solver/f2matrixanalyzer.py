@@ -103,6 +103,13 @@ class F2MatrixAnalyzer:
                 return False
         return True
 
+    def __print_f2_vec(self, f2_vec):
+        string = "["
+        for f in f2_vec:
+            string += str(f) + ","
+        print string + "]"
+
+
     def get_coimage_list(self, array):
         if not self.__is_analized:
             return False
@@ -117,7 +124,8 @@ class F2MatrixAnalyzer:
 
         sets = self.__get_kernel_vectors()
         for i in range(len(sets)):
-            sets[i] = sets[i] + f2_vector2
+            new_vec = [sets[i][j] + f2_vector2[j] for j in range(len(f2_vector2))]
+            sets[i] = new_vec
         return sets
 
 

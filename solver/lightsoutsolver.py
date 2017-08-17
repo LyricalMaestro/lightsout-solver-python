@@ -1,10 +1,17 @@
 #coding: utf-8
 
 from solver import f2matrixanalyzer
+import f2
 
 def __put_value_as_matrix(array, size, i, j, value):
     array[i * size + j] = value
 
+def __count_non_zero_vector(f2_vector):
+    count = 0
+    for f in f2_vector:
+        if f == f2.F2(1):
+            count += 1
+    return count
 
 def solve_lightsout(lights, size):
     array = [ 0 for i in range(size * size * size * size)]
@@ -27,15 +34,26 @@ def solve_lightsout(lights, size):
     analyzer = f2matrixanalyzer.F2MatrixAnalyzer(array=array, size=size * size)
     analyzer.analyze()
 
-    print analyzer
+#    print analyzer
     "タップ操作行列が任意の行列でとくことができるか"
-    print analyzer.has_inverse()
+#    print analyzer.has_inverse()
 
     "このライツアウトが解けるかどうか"
-    print analyzer.in_image(lights)
+    if analyzer.in_image(lights):
+        "解ける場合最小の解を探る"
+        coimage_list = analyzer.get_coimage_list(lights)
+        val = None
+        min_count = 9999999
+        for coimage_vec in coimage_list:
+#            print_f2_vec(coimage_vec)
+            count = __count_non_zero_vector(coimage_vec)
+            if val is None or count < min_count:
+                val = coimage_vec
+                min_count = count
+        return val
+    else:
+        return None
 
-    "解ける場合最小の解を探る"
-    print analyzer.get_coimage_list(lights)
 
 
 if __name__ == '__main__':

@@ -3,6 +3,7 @@
 import argparse
 import os
 from solver import lightsoutsolver
+from solver import f2
 
 class range_check(object):
     def __init__(self, low_limit=None, high_limit=None, vtype="integer"):
@@ -46,6 +47,19 @@ def print_input_lightsout(mat_array, size):
             msg += " " + panel
         print msg
 
+def print_output_lightsout(mat_array, size):
+    print "-------      OUTPUT LIGHTSOUT  --------"
+    for i in range(size):
+        msg = " "
+        for j in range(size):
+            panel = ""
+            if mat_array[i * size + j] == f2.F2(1):
+                panel = "■"
+            else:
+                panel = "□"
+            msg += " " + panel
+        print msg
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='LightsOut Solver')
     parser.add_argument('-s', type=int, choices=range_check(low_limit=2), help='LightsOut Size')
@@ -61,5 +75,8 @@ if __name__ == '__main__':
 
     print_input_lightsout(mat_array=mat_array, size=size)
 
-
-    lightsoutsolver.solve_lightsout(mat_array, size)
+    answer = lightsoutsolver.solve_lightsout(mat_array, size)
+    if answer is None:
+        print "not solvable."
+    else:
+        print_output_lightsout(mat_array=answer, size=size)
